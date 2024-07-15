@@ -1,2 +1,26 @@
-# SUGUR-CANE-INDUSTRY-DATABASE-MANAGEMENT-SYSTEM
-"SUGUR CANE INDUSTRY DATABASE MANAGEMENT SYSTEM" in that I create objects, apply constraints and indexes. In that I insert proper data it helps to manage the sugar cane industry properly. In that I Improved the consistency, recoverability and accessibility of Data.  1. Tackled with database issues related to SQL Oracle Database. 
+-- Create Farmers table
+CREATE TABLE Farmers (
+    FarmerID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    ContactInfo TEXT,
+    Address TEXT
+);
+
+-- Create Fields table
+CREATE TABLE Fields (
+    FieldID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FarmerID INTEGER,
+    FieldLocation TEXT NOT NULL,
+    FieldSize REAL NOT NULL,
+    FOREIGN KEY (FarmerID) REFERENCES Farmers(FarmerID)
+);
+
+-- Create Harvests table
+CREATE TABLE Harvests (
+    HarvestID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FieldID INTEGER,
+    HarvestDate DATE NOT NULL,
+    Yield REAL NOT NULL,
+    FOREIGN KEY (FieldID) REFERENCES Fields(FieldID)
+);
+
