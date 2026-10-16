@@ -1,87 +1,119 @@
-CREATE DATABASE IF NOT EXISTS sugarcane_industry_db;
-USE sugarcane_industry_db;
+# Sugarcane Industry Database Management System
 
--- Farmers Table
-CREATE TABLE farmers (
-    farmer_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    village VARCHAR(100),
-    contact_number VARCHAR(15)
-);
+A MySQL-based database management project designed to manage sugarcane farmers, agricultural plots, harvest records, sugar factories, and delivery transactions.
 
--- Plots Table
-CREATE TABLE plots (
-    plot_id INT PRIMARY KEY AUTO_INCREMENT,
-    farmer_id INT,
-    area DECIMAL(10,2),
-    soil_type VARCHAR(50),
-    FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id)
-);
+## Project Overview
 
--- Harvest Table
-CREATE TABLE harvest (
-    harvest_id INT PRIMARY KEY AUTO_INCREMENT,
-    plot_id INT,
-    harvest_date DATE,
-    quantity_in_tons DECIMAL(10,2),
-    FOREIGN KEY (plot_id) REFERENCES plots(plot_id)
-);
+This project demonstrates how a relational database can organize sugarcane industry data and generate useful reports using SQL queries.
 
--- Factory Table
-CREATE TABLE factories (
-    factory_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    location VARCHAR(100)
-);
+## Objectives
 
--- Delivery Table
-CREATE TABLE deliveries (
-    delivery_id INT PRIMARY KEY AUTO_INCREMENT,
-    harvest_id INT,
-    factory_id INT,
-    delivery_date DATE,
-    price_per_ton DECIMAL(10,2),
-    FOREIGN KEY (harvest_id) REFERENCES harvest(harvest_id),
-    FOREIGN KEY (factory_id) REFERENCES factories(factory_id)
-);
--- Farmers
-INSERT INTO farmers (name, village, contact_number)
-VALUES ('Ramesh Patil', 'Kolhapur', '9191919191'),
-       ('Suresh Jadhav', 'Sangli', '9191919191');
+- Maintain farmer and agricultural plot information.
+- Store sugarcane harvest records.
+- Manage sugar factory details.
+- Record sugarcane deliveries and price per ton.
+- Generate production, delivery, and revenue reports using SQL.
 
--- Plots
-INSERT INTO plots (farmer_id, area, soil_type)
-VALUES (1, 2.5, 'Black'), (2, 3.2, 'Red');
+## Technologies Used
 
--- Harvest
-INSERT INTO harvest (plot_id, harvest_date, quantity_in_tons)
-VALUES (1, '2025-01-10', 12.5), (2, '2025-02-12', 15.0);
+- MySQL
+- SQL
+- Relational Database Management System (RDBMS)
 
--- Factories
-INSERT INTO factories (name, location)
-VALUES ('Krishna Sugar Mill', 'Satara'), ('Sahyadri Sugar', 'Pune');
+## Database Schema
 
--- Deliveries
-INSERT INTO deliveries (harvest_id, factory_id, delivery_date, price_per_ton)
-VALUES (1, 1, '2025-01-15', 3000), (2, 2, '2025-02-18', 3200);
+The project contains five tables:
 
--- Total production per farmer
-SELECT f.name, SUM(h.quantity_in_tons) AS total_quantity
+| Table | Purpose |
+|---|---|
+| `farmers` | Stores farmer details |
+| `plots` | Stores agricultural plot information |
+| `harvest` | Records harvest dates and quantities |
+| `factories` | Stores sugar factory details |
+| `deliveries` | Records deliveries and prices per ton |
+
+## Features
+
+- Database creation and table design
+- Primary key and foreign key relationships
+- Sample data insertion using `INSERT`
+- Multi-table queries using `JOIN`
+- Aggregate reporting using `SUM()` and `GROUP BY`
+- Farmer-wise production reports
+- Factory-wise sugarcane receipt reports
+- Delivery revenue calculations
+
+## Setup Instructions
+
+1. Install MySQL Server and MySQL Workbench.
+2. Open MySQL Workbench and connect to your MySQL server.
+3. Open a new SQL query tab.
+4. Copy and execute the SQL script provided in this repository.
+5. Verify the tables and run the reporting queries.
+
+## Sample SQL Queries
+
+### 1. Total Sugarcane Production by Farmer
+
+```sql
+SELECT
+    f.name AS farmer_name,
+    SUM(h.quantity_in_tons) AS total_quantity_in_tons
 FROM farmers f
 JOIN plots p ON f.farmer_id = p.farmer_id
 JOIN harvest h ON p.plot_id = h.plot_id
-GROUP BY f.name;
+GROUP BY f.farmer_id, f.name;
+```
 
--- Total revenue by delivery
-SELECT d.delivery_id, f.name AS farmer_name, d.quantity_in_tons * d.price_per_ton AS revenue
+### 2. Revenue by Delivery
+
+```sql
+SELECT
+    d.delivery_id,
+    f.name AS farmer_name,
+    h.quantity_in_tons * d.price_per_ton AS revenue
 FROM deliveries d
 JOIN harvest h ON d.harvest_id = h.harvest_id
 JOIN plots p ON h.plot_id = p.plot_id
 JOIN farmers f ON p.farmer_id = f.farmer_id;
+```
 
--- List of factories and how much they received
-SELECT fac.name, SUM(h.quantity_in_tons) AS total_received
+*Note: This example assumes the full harvest quantity was delivered. A production-ready database should store the actual delivered quantity separately.*
+
+### 3. Total Sugarcane Received by Factory
+
+```sql
+SELECT
+    fac.name AS factory_name,
+    SUM(h.quantity_in_tons) AS total_received_in_tons
 FROM deliveries d
 JOIN factories fac ON d.factory_id = fac.factory_id
 JOIN harvest h ON d.harvest_id = h.harvest_id
-GROUP BY fac.name;
+GROUP BY fac.factory_id, fac.name;
+```
+
+## Learning Outcomes
+
+- Understanding relational database design
+- Creating tables with primary and foreign keys
+- Writing SQL queries using joins and aggregate functions
+- Generating reports from related tables
+- Applying database concepts to an agricultural industry use case
+
+## Future Enhancements
+
+- Add farmer payment and delivery tracking.
+- Add data validation and constraints.
+- Create views and stored procedures for reporting.
+- Build a Power BI dashboard for production and revenue analysis.
+- Add test cases and more realistic sample data.
+
+## Author
+
+**Amol Tathe**
+
+GitHub: [amoltathesoftwareengineer](https://github.com/amoltathesoftwareengineer)
+
+---
+
+*This project is intended for learning and demonstrating SQL and relational database management concepts.*
