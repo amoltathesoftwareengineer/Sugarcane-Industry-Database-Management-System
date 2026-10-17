@@ -26,26 +26,67 @@ The Sugarcane Industry Database Management System organizes sugarcane production
 
 ## Key Features
 
-- Relational database design with primary and foreign keys
-- Data integrity checks using constraints
-- Sample data for farmers, plots, harvests, factories, and deliveries
-- Farmer-wise sugarcane production reports
-- Farmer-wise delivery revenue analysis
-- Factory-wise delivery quantity reports
-- Detailed delivery reports
-- Overall business summary
-- Data validation queries
+
+## Key Features
+
+- **Farmer Management:** Store farmer names and village information.
+- **Agricultural Plot Tracking:** Maintain plot details, cultivated area, and soil type.
+- **Harvest Management:** Record harvested sugarcane quantities and harvest dates.
+- **Factory Management:** Maintain sugar factory names and locations.
+- **Delivery Tracking:** Record delivered quantities and prices per ton.
+- **Payment Analysis:** Calculate total payments and farmer-wise income using SQL.
+- **Data Reporting:** Generate summaries using JOIN, GROUP BY, aggregate functions, and sorting.
+
+
+## Technologies Used
+
+- **Database:** MySQL
+- **Query Language:** SQL
+- **Tools:** MySQL-compatible SQL editor / DB Fiddle
 
 ## SQL Concepts Demonstrated
 
-- CREATE TABLE and INSERT statements
-- Primary keys and foreign keys
-- JOIN operations
-- Aggregate functions such as SUM() and COUNT()
-- GROUP BY
-- Calculated columns
-- CHECK and NOT NULL constraints
-- Data validation queries
+- DDL (CREATE TABLE)
+- DML (INSERT)
+- INNER JOIN
+- Aggregate Functions: SUM(), COUNT(), AVG()
+- GROUP BY and ORDER BY
+- Calculated Columns
+- Multi-table Queries
+- Business Reporting and Data Analysis
+
+
+## Sample Query Results
+
+### 1. Farmer-wise Total Harvest
+
+| Farmer Name | Village | Total Harvest (Tons) |
+|---|---|---:|
+| Suresh Jadhav | Sangli | 15.00 |
+| Ramesh Patil | Kolhapur | 12.50 |
+
+### 2. Factory-wise Delivery and Payment
+
+| Factory Name | Delivered Tons | Total Payment |
+|---|---:|---:|
+| Sahyadri Sugar | 15.00 | 48000 |
+| Krishna Sugar Mill | 12.50 | 37500 |
+
+### 3. Farmer-wise Total Income
+
+| Farmer Name | Village | Delivered Tons | Total Income |
+|---|---|---:|---:|
+| Suresh Jadhav | Sangli | 15.00 | 48000 |
+| Ramesh Patil | Kolhapur | 12.50 | 37500 |
+
+### 4. Factory-wise Delivery Summary
+
+| Factory Name | Total Deliveries | Total Tons | Average Price per Ton |
+|---|---:|---:|---:|
+| Sahyadri Sugar | 1 | 15.00 | 3200 |
+| Krishna Sugar Mill | 1 | 12.50 | 3000 |
+
+
 
 ## Sample Business Insights
 
