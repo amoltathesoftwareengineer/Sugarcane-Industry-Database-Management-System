@@ -77,10 +77,12 @@ Sample delivery summary:
 
 ## Project Structure
 
--Sugarcane-Industry-Database-Management-System/
+```text
+Sugarcane-Industry-Database-Management-System/
 ├── README.md
 ├── queries.sql
 └── sugarcane_industry.sql
+```
 
 ## Future Improvements
 
