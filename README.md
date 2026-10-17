@@ -116,6 +116,12 @@ Sample delivery summary:
 4. Execute the SQL statements in order.
 5. Run the report queries to view the results.
 
+## Project Files
+
+- [Database Schema and Sample Data](sugarcane_industry.sql)
+- [SQL Queries and Reports](queries.sql)
+
+
 ## Project Structure
 
 ```text
