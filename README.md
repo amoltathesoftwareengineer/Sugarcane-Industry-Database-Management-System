@@ -77,7 +77,7 @@ Sample delivery summary:
 
 ## Project Structure
 
-Sugarcane-Industry-Database-Management-System/
+-Sugarcane-Industry-Database-Management-System/
 ├── README.md
 ├── queries.sql
 └── sugarcane_industry.sql
