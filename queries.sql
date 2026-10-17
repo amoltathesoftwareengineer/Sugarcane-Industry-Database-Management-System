@@ -33,3 +33,15 @@ JOIN harvest h ON p.plot_id = h.plot_id
 JOIN deliveries d ON h.harvest_id = d.harvest_id
 GROUP BY f.farmer_id, f.name, f.village
 ORDER BY total_income DESC;
+
+-- Query 4: Factory-wise delivery summary
+SELECT
+    f.name AS factory_name,
+    COUNT(d.delivery_id) AS total_deliveries,
+    SUM(d.delivered_quantity_in_tons) AS total_tons,
+    AVG(d.price_per_ton) AS average_price_per_ton
+FROM factories f
+JOIN deliveries d
+    ON f.factory_id = d.factory_id
+GROUP BY f.factory_id, f.name
+ORDER BY total_tons DESC;
